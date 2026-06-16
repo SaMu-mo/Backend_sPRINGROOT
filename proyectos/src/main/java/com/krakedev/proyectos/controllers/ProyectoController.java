@@ -1,8 +1,8 @@
 package com.krakedev.proyectos.controllers;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.krakedev.proyectos.entidades.Proyecto;
 import com.krakedev.proyectos.services.ProyectoService;
@@ -14,6 +14,7 @@ public class ProyectoController {
     @Autowired
     private ProyectoService proyectoService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/")
     public ResponseEntity<?> guardar(@RequestBody Proyecto proyecto) {
         try {
@@ -23,6 +24,7 @@ public class ProyectoController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/")
     public ResponseEntity<?> listar() {
         try {
@@ -32,6 +34,7 @@ public class ProyectoController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -41,6 +44,7 @@ public class ProyectoController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody Proyecto proyecto) {
         try {
@@ -50,6 +54,7 @@ public class ProyectoController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable int id) {
         try {

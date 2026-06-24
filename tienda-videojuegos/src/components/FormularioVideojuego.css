@@ -1,46 +1,91 @@
 .contenedor-formulario {
-  max-width: 500px;
+  max-width: 520px;
   margin: 40px auto;
-  padding: 24px;
+  padding: 32px;
   background-color: #0f0f1a;
-  border-radius: 12px;
+  border-radius: 16px;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 .contenedor-formulario h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   color: #a78bfa;
+  font-weight: 600;
 }
 
 .formulario-videojuego {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .formulario-videojuego label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 13px;
+  color: #c4c4dd;
   gap: 6px;
+  position: relative;
 }
 
 .formulario-videojuego input,
-.formulario-videojuego select {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #25253d;
-  background-color: #1a1a30;
+.formulario-videojuego select,
+.formulario-videojuego textarea {
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid #2a2a45;
+  background-color: #16162a;
   color: #ffffff;
   font-size: 14px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.formulario-videojuego textarea {
+  resize: vertical;
+  min-height: 70px;
+  transition: all 0.3s ease;
+}
+
+.formulario-videojuego textarea:focus {
+  min-height: 110px;
 }
 
 .formulario-videojuego input:focus,
-.formulario-videojuego select:focus {
-  outline: 2px solid #6c3ce0;
+.formulario-videojuego select:focus,
+.formulario-videojuego textarea:focus {
+  outline: none;
+  border-color: #6c3ce0;
+  box-shadow: 0 0 0 3px rgba(108, 60, 224, 0.25);
+  background-color: #1a1a30;
+}
+
+.contador-caracteres {
+  align-self: flex-end;
+  font-size: 11px;
+  color: #6b6b8d;
+}
+
+.error-mensaje {
+  color: #ff6b6b;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0;
+  animation: aparecerError 0.3s ease forwards;
+}
+
+@keyframes aparecerError {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .label-checkbox {
@@ -58,12 +103,13 @@
 .boton-guardar,
 .boton-cancelar {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
   color: #ffffff;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
 .boton-guardar {
@@ -72,12 +118,25 @@
 
 .boton-guardar:hover {
   background-color: #5a2fc2;
+  transform: translateY(-1px);
 }
 
 .boton-cancelar {
-  background-color: #333350;
+  background-color: #2a2a45;
 }
 
 .boton-cancelar:hover {
-  background-color: #44446a;
+  background-color: #3a3a5c;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .contenedor-formulario {
+    margin: 20px 16px;
+    padding: 24px;
+  }
+
+  .botones-formulario {
+    flex-direction: column;
+  }
 }

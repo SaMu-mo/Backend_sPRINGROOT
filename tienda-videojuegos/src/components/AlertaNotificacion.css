@@ -1,0 +1,43 @@
+.alerta-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(34, 197, 94, 0.92);
+  color: #ffffff;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  animation: aparecerToast 0.3s ease, desaparecerToast 0.3s ease 2.7s forwards;
+}
+
+@keyframes aparecerToast {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes desaparecerToast {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .alerta-toast {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+  }
+}

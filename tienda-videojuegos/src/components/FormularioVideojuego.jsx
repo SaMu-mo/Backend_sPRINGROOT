@@ -14,12 +14,22 @@ function FormularioVideojuego({ onAgregar, onEditar }) {
     lanzamiento: '',
     precio: '',
     disponible: true,
-    progreso: 0
+    progreso: 0,
+    fechaLanzamiento: '',
+    sinopsis: '',
+    calificacion: ''
   });
+
+  const [errores, setErrores] = useState({});
 
   useEffect(() => {
     if (juegoAEditar) {
-      setFormulario(juegoAEditar);
+      setFormulario({
+        fechaLanzamiento: '',
+        sinopsis: '',
+        calificacion: '',
+        ...juegoAEditar
+      });
     }
   }, [juegoAEditar]);
 
@@ -31,14 +41,63 @@ function FormularioVideojuego({ onAgregar, onEditar }) {
     });
   }
 
+  function validarFormulario() {
+    const erroresActivos = {};
+    const hoy = new Date().toISOString().split('T')[0];
+
+    if (!formulario.titulo || formulario.titulo.trim() === '') {
+      erroresActivos.titulo = 'El título no puede estar vacío ni contener solo espacios.';
+    }
+
+    if (
+      formulario.calificacion === '' ||
+      Number(formulario.calificacion) < 1 ||
+      Number(formulario.calificacion) > 100
+    ) {
+      erroresActivos.calificacion = 'La calificación debe estar entre 1 y 100.';
+    }
+
+    if (!formulario.sinopsis || formulario.sinopsis.trim().length < 10) {
+      erroresActivos.sinopsis = 'La sinopsis debe tener al menos 10 caracteres.';
+    } else if (formulario.sinopsis.trim().length > 250) {
+      erroresActivos.sinopsis = 'La sinopsis no puede superar los 250 caracteres.';
+    }
+
+    if (!formulario.fechaLanzamiento) {
+      erroresActivos.fechaLanzamiento = 'Debes indicar la fecha de lanzamiento.';
+    } else if (formulario.fechaLanzamiento > hoy) {
+      erroresActivos.fechaLanzamiento = 'La fecha no puede ser futura.';
+    }
+
+    if (!formulario.precio || Number(formulario.precio) <= 0) {
+      erroresActivos.precio = 'El precio debe ser mayor a 0.';
+    }
+
+    if (!formulario.lanzamiento) {
+      erroresActivos.lanzamiento = 'Debes indicar el año de lanzamiento.';
+    }
+
+    return erroresActivos;
+  }
+
   function manejarEnvio(e) {
     e.preventDefault();
+
+    const erroresActivos = validarFormulario();
+
+    if (Object.keys(erroresActivos).length > 0) {
+      setErrores(erroresActivos);
+      return;
+    }
+
+    setErrores({});
 
     const datosFinales = {
       ...formulario,
       lanzamiento: Number(formulario.lanzamiento),
       precio: Number(formulario.precio),
-      progreso: Number(formulario.progreso)
+      progreso: Number(formulario.progreso),
+      calificacion: Number(formulario.calificacion)
     };
 
     if (juegoAEditar) {
@@ -62,8 +121,8 @@ function FormularioVideojuego({ onAgregar, onEditar }) {
             name="titulo"
             value={formulario.titulo}
             onChange={manejarCambio}
-            required
           />
+          {errores.titulo && <span className="error-mensaje">{errores.titulo}</span>}
         </label>
 
         <label>
@@ -95,8 +154,22 @@ function FormularioVideojuego({ onAgregar, onEditar }) {
             name="lanzamiento"
             value={formulario.lanzamiento}
             onChange={manejarCambio}
-            required
           />
+          {errores.lanzamiento && <span className="error-mensaje">{errores.lanzamiento}</span>}
+        </label>
+
+        <label>
+          Fecha de lanzamiento
+          <input
+            type="date"
+            name="fechaLanzamiento"
+            value={formulario.fechaLanzamiento}
+            onChange={manejarCambio}
+            max={new Date().toISOString().split('T')[0]}
+          />
+          {errores.fechaLanzamiento && (
+            <span className="error-mensaje">{errores.fechaLanzamiento}</span>
+          )}
         </label>
 
         <label>
@@ -107,8 +180,36 @@ function FormularioVideojuego({ onAgregar, onEditar }) {
             name="precio"
             value={formulario.precio}
             onChange={manejarCambio}
-            required
           />
+          {errores.precio && <span className="error-mensaje">{errores.precio}</span>}
+        </label>
+
+        <label>
+          Calificación de la crítica (1 a 100)
+          <input
+            type="number"
+            min="1"
+            max="100"
+            name="calificacion"
+            value={formulario.calificacion}
+            onChange={manejarCambio}
+          />
+          {errores.calificacion && <span className="error-mensaje">{errores.calificacion}</span>}
+        </label>
+
+        <label>
+          Sinopsis / Descripción
+          <textarea
+            name="sinopsis"
+            value={formulario.sinopsis}
+            onChange={manejarCambio}
+            maxLength={250}
+            rows={4}
+          />
+          <span className="contador-caracteres">
+            {formulario.sinopsis.length}/250
+          </span>
+          {errores.sinopsis && <span className="error-mensaje">{errores.sinopsis}</span>}
         </label>
 
         <label>

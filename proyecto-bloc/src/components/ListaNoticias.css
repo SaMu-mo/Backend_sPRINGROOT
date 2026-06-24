@@ -1,0 +1,28 @@
+.grid-noticias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.mensaje-carga {
+  text-align: center;
+  font-family: 'Inter', Arial, sans-serif;
+  color: #6b7280;
+  margin-top: 60px;
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
+  .grid-noticias {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-noticias {
+    grid-template-columns: 1fr;
+  }
+}

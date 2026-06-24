@@ -1,0 +1,83 @@
+.contenedor-formulario {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #0f0f1a;
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.contenedor-formulario h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #a78bfa;
+}
+
+.formulario-videojuego {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formulario-videojuego label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 6px;
+}
+
+.formulario-videojuego input,
+.formulario-videojuego select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #25253d;
+  background-color: #1a1a30;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.formulario-videojuego input:focus,
+.formulario-videojuego select:focus {
+  outline: 2px solid #6c3ce0;
+}
+
+.label-checkbox {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+}
+
+.botones-formulario {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.boton-guardar,
+.boton-cancelar {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.boton-guardar {
+  background-color: #6c3ce0;
+}
+
+.boton-guardar:hover {
+  background-color: #5a2fc2;
+}
+
+.boton-cancelar {
+  background-color: #333350;
+}
+
+.boton-cancelar:hover {
+  background-color: #44446a;
+}

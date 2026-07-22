@@ -34,6 +34,10 @@ function App() {
     mostrarExito('Videojuego eliminado correctamente');
   }
 
+  function saludarTienda(nombre) {
+    alert("Bienvenido a la tienda, " + nombre);
+  }
+
   function editar(juegoActualizado) {
     setVideojuegos(
       videojuegos.map((juego) =>
@@ -45,7 +49,8 @@ function App() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1a1a2e, #16213e)' }}>
-      <Navbar />
+      <Navbar nombreTienda="Samuelito Store" onSaludar={saludarTienda} />
+
       <AlertaNotificacion mensaje={mensajeExito} />
       <Routes>
         <Route
